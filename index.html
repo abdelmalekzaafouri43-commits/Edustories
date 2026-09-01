@@ -7,68 +7,85 @@
   <style>
     :root {
       --primary: #4338ca;
-      --primary-light: #e0e7ff;
+      --primary-hover: #3730a3;
+      --primary-subtle: #e0e7ff;
       --secondary: #0d9488;
       --bg: #f8fafc;
-      --card-bg: #ffffff;
+      --surface: #ffffff;
+      --surface-variant: #f1f5f9;
       --text-main: #0f172a;
       --text-muted: #64748b;
+      --border: #e2e8f0;
+      
       --vocab-color: #d97706;
       --vocab-bg: #fef3c7;
       --grammar-color: #0284c7;
       --grammar-bg: #e0f2fe;
-      --highlight: #fde047;
-      --border: #e2e8f0;
+      --active-word-bg: #fde047;
+      --active-word-text: #000000;
+      --success: #10b981;
+      --error: #ef4444;
     }
 
     [data-theme="dark"] {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --primary-subtle: #1e1b4b;
+      --secondary: #14b8a6;
+      --bg: #0b0f19;
+      --surface: #1e293b;
+      --surface-variant: #334155;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
+      --border: #334155;
+      
       --vocab-color: #fbbf24;
       --vocab-bg: #451a03;
       --grammar-color: #38bdf8;
       --grammar-bg: #082f49;
-      --highlight: #ca8a04;
-      --border: #334155;
+      --active-word-bg: #eab308;
+      --active-word-text: #000000;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: var(--bg); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; user-select: none; }
 
-    /* Top 25% Section */
+    /* TOP 25% SECTION */
     .top-section {
       height: 25vh;
       min-height: 160px;
-      background: linear-gradient(135deg, var(--primary), #312e81);
-      color: white;
-      padding: 16px 20px;
+      background: linear-gradient(135deg, #312e81, #1e1b4b);
+      color: #ffffff;
+      padding: 14px 18px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      position: relative;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 10;
     }
-    .top-header { display: flex; justify-content: space-between; align-items: center; }
-    .badge-group { display: flex; gap: 8px; align-items: center; }
-    .badge { padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; text-transform: uppercase; background: rgba(255,255,255,0.2); }
-    .badge-a2 { background: #10b981; }
-    .badge-b1 { background: #3b82f6; }
-    .badge-c1 { background: #8b5cf6; }
-    
-    .story-title { font-size: 1.35rem; font-weight: 800; line-height: 1.2; margin-top: 4px; }
-    .story-theme { font-size: 0.85rem; opacity: 0.85; }
 
-    .top-actions { display: flex; justify-content: space-between; align-items: center; }
-    .btn-icon { background: rgba(255,255,255,0.2); border: none; color: white; width: 34px; height: 34px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-    .btn-pill { background: white; color: var(--primary); border: none; padding: 6px 14px; border-radius: 20px; font-weight: 700; font-size: 12px; cursor: pointer; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; }
+    .badge-wrap { display: flex; gap: 6px; align-items: center; }
+    .badge { padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+    .badge-a2 { background: #10b981; color: white; }
+    .badge-b1 { background: #3b82f6; color: white; }
+    .badge-c1 { background: #8b5cf6; color: white; }
+    .badge-theme { background: rgba(255,255,255,0.18); color: white; }
 
-    /* Progress bar */
-    .progress-bar-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; margin-top: 6px; }
-    .progress-bar-fill { height: 100%; width: 0%; background: #38bdf8; transition: width 0.2s linear; }
+    .top-controls { display: flex; gap: 6px; align-items: center; }
+    .btn-circle { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,0.18); border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+    .btn-circle:hover { background: rgba(255,255,255,0.3); }
 
-    /* Bottom 75% Section */
+    .title-area { margin-top: 2px; }
+    .story-title { font-size: 1.25rem; font-weight: 800; line-height: 1.2; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+    .story-theme { font-size: 0.8rem; opacity: 0.85; margin-top: 2px; }
+
+    .header-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+    .btn-lib { background: white; color: #312e81; border: none; padding: 5px 12px; border-radius: 16px; font-weight: 700; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+    .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+    .progress-bar { height: 100%; width: 0%; background: #38bdf8; transition: width 0.15s ease-out; }
+
+    /* BOTTOM 75% SECTION */
     .bottom-section {
       height: 75vh;
       display: flex;
@@ -77,165 +94,225 @@
       overflow: hidden;
     }
 
-    /* Audio Toolbar */
-    .audio-toolbar {
-      padding: 10px 16px;
-      background: var(--card-bg);
+    .audio-bar {
+      padding: 8px 16px;
+      background: var(--surface);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
+      flex-wrap: wrap;
     }
-    .audio-btn-main {
+
+    .btn-play {
       background: var(--primary);
       color: white;
       border: none;
-      padding: 8px 18px;
-      border-radius: 24px;
-      font-weight: bold;
+      padding: 7px 16px;
+      border-radius: 20px;
+      font-weight: 700;
       font-size: 13px;
       cursor: pointer;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .speed-btn {
-      background: var(--bg);
+    .btn-play:hover { background: var(--primary-hover); }
+
+    .audio-settings { display: flex; gap: 6px; align-items: center; }
+    .select-pill {
+      background: var(--surface-variant);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 6px 10px;
+      padding: 5px 8px;
       border-radius: 8px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       cursor: pointer;
     }
 
-    /* Story Content Container */
-    .story-container {
+    /* STORY READER AREA */
+    .story-scroll {
       flex: 1;
       overflow-y: auto;
-      padding: 20px 18px 40px 18px;
+      padding: 16px 18px 60px 18px;
       line-height: 1.85;
-      font-size: 1.05rem;
+      user-select: text;
     }
+    .font-sm { font-size: 0.95rem; }
+    .font-md { font-size: 1.1rem; }
+    .font-lg { font-size: 1.3rem; }
 
-    .word { cursor: pointer; border-radius: 4px; padding: 1px 2px; }
+    .word { cursor: pointer; border-radius: 4px; padding: 1px 3px; transition: all 0.15s ease; }
     .word-vocab { background: var(--vocab-bg); color: var(--vocab-color); font-weight: 600; border-bottom: 2px solid var(--vocab-color); }
     .word-grammar { background: var(--grammar-bg); color: var(--grammar-color); font-weight: 600; border-bottom: 2px dashed var(--grammar-color); }
-    .highlighted { background: var(--highlight) !important; color: #000 !important; }
+    .reading-highlight { background: var(--active-word-bg) !important; color: var(--active-word-text) !important; border-radius: 4px; box-shadow: 0 0 8px var(--active-word-bg); }
 
-    /* Quiz Card */
+    /* QUIZ & MORALE CARDS */
     .quiz-card {
-      margin-top: 30px;
+      margin-top: 28px;
       padding: 16px;
-      background: var(--card-bg);
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
-    .quiz-title { font-weight: 800; margin-bottom: 10px; font-size: 1rem; color: var(--primary); }
-    .quiz-option {
+    .quiz-title { font-weight: 800; font-size: 0.95rem; color: var(--primary); margin-bottom: 8px; }
+    .quiz-opt {
       display: block;
       width: 100%;
       text-align: left;
-      padding: 10px 14px;
+      padding: 10px 12px;
       margin-bottom: 8px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      background: var(--bg);
+      background: var(--surface-variant);
       color: var(--text-main);
+      font-size: 12px;
       cursor: pointer;
-      font-size: 13px;
     }
-    .quiz-option.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; font-weight: bold; }
-    .quiz-option.wrong { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+    .quiz-opt.correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #15803d !important; font-weight: bold; }
+    .quiz-opt.wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #b91c1c !important; }
 
-    /* Annotation Modal / Drawer */
-    .modal-overlay {
+    .morale-box {
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--primary-subtle);
+      border-left: 4px solid var(--primary);
+      border-radius: 8px;
+      font-size: 12px;
+      font-style: italic;
+    }
+
+    /* MODAL SHEETS */
+    .modal-backdrop {
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
       background: rgba(0,0,0,0.5);
       display: none;
       align-items: flex-end;
-      z-index: 100;
+      z-index: 1000;
     }
-    .modal-sheet {
+    .modal-box {
       width: 100%;
-      background: var(--card-bg);
-      border-top-left-radius: 24px;
-      border-top-right-radius: 24px;
-      padding: 24px 20px;
-      box-shadow: 0 -8px 24px rgba(0,0,0,0.2);
-      animation: slideUp 0.25s ease-out;
+      max-height: 80vh;
+      overflow-y: auto;
+      background: var(--surface);
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 -8px 24px rgba(0,0,0,0.25);
     }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
-    .modal-word { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
-    .modal-meaning { margin: 10px 0; font-size: 1rem; }
-    .modal-example { background: var(--bg); padding: 10px; border-radius: 8px; font-style: italic; font-size: 0.9rem; color: var(--text-muted); border-left: 3px solid var(--primary); }
+    .modal-word { font-size: 1.35rem; font-weight: 800; color: var(--primary); }
+    .modal-tag { display: inline-block; padding: 2px 6px; border-radius: 6px; font-size: 10px; font-weight: 700; margin-top: 4px; }
+    .modal-def { margin: 12px 0; font-size: 0.95rem; line-height: 1.4; }
+    .modal-ex { background: var(--surface-variant); padding: 10px; border-radius: 8px; font-style: italic; font-size: 0.85rem; border-left: 3px solid var(--primary); }
+
+    /* STORY HUB DIALOG */
+    .lib-item {
+      padding: 12px;
+      background: var(--surface-variant);
+      border-radius: 10px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid var(--border);
+    }
+    .lib-item.active { border-color: var(--primary); background: var(--primary-subtle); }
   </style>
 </head>
 <body>
 
-  <!-- Top 25% Section -->
+  <!-- TOP 25% SECTION -->
   <div class="top-section">
-    <div>
-      <div class="top-header">
-        <div class="badge-group">
-          <span id="levelBadge" class="badge badge-a2">A2 Elementary</span>
-          <span id="themeBadge" class="badge">Daily Life</span>
-        </div>
-        <button class="btn-icon" onclick="toggleTheme()" title="Toggle Dark Theme">🌓</button>
+    <div class="top-bar">
+      <div class="badge-wrap">
+        <span id="badgeLevel" class="badge badge-a2">A2 Elementary</span>
+        <span id="badgeTheme" class="badge badge-theme">Daily Life</span>
       </div>
-      <h1 id="storyTitle" class="story-title">The Quiet Café in Kyoto</h1>
-      <p id="storyTheme" class="story-theme">A warm morning encounter in a Japanese café</p>
+      <div class="top-controls">
+        <button class="btn-circle" onclick="cycleFontSize()" title="Adjust font size">Aa</button>
+        <button class="btn-circle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">🌓</button>
+      </div>
+    </div>
+
+    <div class="title-area">
+      <h1 id="titleDisplay" class="story-title">The Quiet Café in Kyoto</h1>
+      <p id="themeDescDisplay" class="story-theme">A warm morning encounter in a Japanese café</p>
     </div>
 
     <div>
-      <div class="top-actions">
-        <button class="btn-pill" onclick="changeStory()">📚 Stories (${stories.length})</button>
-        <span style="font-size: 11px; opacity: 0.8;">Tap highlighted words for definitions</span>
+      <div class="header-footer">
+        <button class="btn-lib" onclick="openStoryHub()">📚 Story Library (<span id="storyCount">3</span>)</button>
+        <span style="font-size: 11px; opacity: 0.85;">Tap words for explanations</span>
       </div>
-      <div class="progress-bar-bg">
-        <div id="progressFill" class="progress-bar-fill"></div>
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar"></div>
       </div>
     </div>
   </div>
 
-  <!-- Bottom 75% Section -->
+  <!-- BOTTOM 75% SECTION -->
   <div class="bottom-section">
-    <!-- Audio & Controls Toolbar -->
-    <div class="audio-toolbar">
-      <button id="playBtn" class="audio-btn-main" onclick="toggleAudio()">▶ Read Aloud</button>
-      <div style="display: flex; gap: 6px;">
-        <button class="speed-btn" onclick="cycleSpeed()"><span id="speedLabel">1.0x</span></button>
-        <button class="speed-btn" onclick="cycleVoice()">🗣️ <span id="voiceLabel">Natural</span></button>
+    <!-- Audio Toolbar -->
+    <div class="audio-bar">
+      <button id="btnPlay" class="btn-play" onclick="handlePlayToggle()">▶ Read Aloud</button>
+      <button id="btnStop" class="btn-play" style="background:var(--error); display:none;" onclick="stopAudio()">⏹ Stop</button>
+      
+      <div class="audio-settings">
+        <select id="speedSelect" class="select-pill" onchange="changeSpeed(this.value)">
+          <option value="0.75">0.75x</option>
+          <option value="1.0" selected>1.0x</option>
+          <option value="1.25">1.25x</option>
+          <option value="1.5">1.5x</option>
+        </select>
+
+        <select id="voiceSelect" class="select-pill" onchange="changeVoice(this.value)">
+          <option value="en-US">🇺🇸 US English</option>
+          <option value="en-GB">🇬🇧 UK English</option>
+          <option value="en-AU">🇦🇺 Australia</option>
+          <option value="en-IN">🇮🇳 India</option>
+        </select>
       </div>
     </div>
 
-    <!-- Main Story Reader -->
-    <div id="storyContainer" class="story-container">
-      <!-- Injected Story Words & Quiz dynamically -->
+    <!-- Main Reader Container -->
+    <div id="readerArea" class="story-scroll font-md"></div>
+  </div>
+
+  <!-- Word / Grammar Annotation Modal Sheet -->
+  <div id="annotationSheet" class="modal-backdrop" onclick="closeSheet(event, 'annotationSheet')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <div id="annoWord" class="modal-word">Word</div>
+          <span id="annoType" class="modal-tag">VOCAB</span>
+        </div>
+        <button class="btn-circle" style="background:var(--primary); color:white;" onclick="speakWord(currentAnnotation.word)">🔊</button>
+      </div>
+      <div id="annoPhonetic" style="color:var(--text-muted); font-size:12px; margin-top:4px;">/IPA/</div>
+      <div id="annoMeaning" class="modal-def">Definition</div>
+      <div id="annoExample" class="modal-ex">Example Sentence</div>
+      <button class="btn-play" style="width:100%; margin-top:14px; justify-content:center;" onclick="closeSheetDirect('annotationSheet')">Close</button>
     </div>
   </div>
 
-  <!-- Word Annotation Bottom Sheet -->
-  <div id="annotationModal" class="modal-overlay" onclick="closeModal(event)">
-    <div class="modal-sheet" onclick="event.stopPropagation()">
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div id="modalWord" class="modal-word">Word</div>
-        <button class="btn-icon" style="background:var(--border); color:var(--text-main);" onclick="speakSingleWord()">🔊</button>
-      </div>
-      <div id="modalPhonetic" style="color:var(--text-muted); font-size:12px; margin-top:2px;">/ˈwɜːrd/</div>
-      <div id="modalMeaning" class="modal-meaning">Meaning details here...</div>
-      <div id="modalExample" class="modal-example">"Example sentence using this word."</div>
-      <button class="btn-pill" style="margin-top:16px; width:100%; padding:10px; background:var(--primary); color:white;" onclick="closeModalDirect()">Got it</button>
+  <!-- Story Library Hub Modal -->
+  <div id="librarySheet" class="modal-backdrop" onclick="closeSheet(event, 'librarySheet')">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h2 style="font-size:1.1rem; margin-bottom:12px; color:var(--primary);">📚 Story Library & Offline Cache</h2>
+      <div id="libraryList"></div>
+      <button class="btn-play" style="width:100%; margin-top:12px; justify-content:center;" onclick="closeSheetDirect('librarySheet')">Done</button>
     </div>
   </div>
 
   <script>
-    // Preset stories with CEFR levels and markup
-    const stories = [
+    // Complete Preset Story Collection
+    const defaultStories = [
       {
         id: "kyoto_cafe",
         title: "The Quiet Café in Kyoto",
@@ -243,185 +320,325 @@
         theme: "Daily Life",
         description: "A warm morning encounter in a Japanese café",
         text: "Every morning, Kenji walks to a [cozy|vocab|giving a feeling of comfort, warmth, and relaxation|/ˈkoʊ.zi/|It was a cozy little room with a fireplace.] café near the river. The barista, Hana, always [greets|vocab|to welcome someone with polite words or actions|/ɡriːts/|She always greets customers with a warm smile.] him with a bright smile. 'Good morning! Would you like your usual green tea latte?' she asks. Kenji [nods|vocab|to move your head up and down to show agreement|/nɑːdz/|He nods politely to agree.] gladly. [While sitting|grammar|Subordinate clause expressing simultaneous actions|/waɪl ˈsɪt.ɪŋ/|While sitting by the window, she watched the rain.] by the window, he enjoys the gentle breeze and writes in his journal.",
+        morale: "Daily routines and gentle connections bring lasting peace.",
         quiz: {
           question: "Where does Kenji go every morning?",
-          options: ["A busy train station", "A cozy café near the river", "A library in Tokyo", "A quiet bakery"],
+          options: ["A noisy train station", "A cozy café near the river", "A university library", "A bakery in Osaka"],
           correct: 1,
-          explanation: "Kenji walks to a cozy café near the river every morning."
+          explanation: "Kenji walks to a cozy café near the river every morning to enjoy his tea."
         }
       },
       {
-        id: "starry_night",
+        id: "alpine_stars",
         title: "Under the Alpine Stars",
         level: "B1",
         theme: "Adventure",
         description: "An overnight hike in the Swiss Alps",
-        text: "Elena had been hiking for six hours before she finally reached the mountain shelter. The altitude made breathing [laborious|vocab|requiring considerable effort and time|/ləˈbɔːr.i.əs/|Hiking at high altitudes can be laborious.] yet exhilarating. As twilight faded, the night sky [unveiled|vocab|revealed or made visible for the first time|/ʌnˈveɪld/|The artist unveiled her new painting.] thousands of brilliant stars. [Had she not prepared|grammar|Inverted third conditional expressing unreal past condition|/hæd ʃiː nɒt/|Had she not prepared, she would have frozen.] warm clothing, the sub-zero chill would have forced her back.",
+        text: "Elena had been hiking for six hours before she finally reached the mountain shelter. The high altitude made her breathing [laborious|vocab|requiring considerable effort and time|/ləˈbɔːr.i.əs/|Hiking steep inclines can be laborious.] yet deeply exhilarating. As twilight faded into darkness, the clear night sky [unveiled|vocab|revealed or displayed for the first time|/ʌnˈveɪld/|The artist unveiled her new painting.] thousands of brilliant stars. [Had she not packed|grammar|Inverted conditional expressing a past counterfactual condition|/hæd ʃiː nɒt pækt/|Had she not packed warm clothes, she would have frozen.] thermal layers, the sub-zero chill would have forced her to turn back.",
+        morale: "Thorough preparation turns daunting challenges into unforgettable triumphs.",
         quiz: {
-          question: "Why was Elena's breathing laborious?",
-          options: ["She was frightened", "Due to the high altitude", "She caught a cold", "The wind was too loud"],
+          question: "What made Elena's hike challenging?",
+          options: ["She lost her map", "The high altitude and freezing chill", "Her flashlight broke", "A sudden thunderstorm"],
           correct: 1,
-          explanation: "The high altitude in the Alps made breathing physically challenging."
+          explanation: "The high altitude made breathing laborious and the sub-zero chill required thermal layers."
+        }
+      },
+      {
+        id: "cyber_dilemma",
+        title: "The Neural Nexus",
+        level: "C1",
+        theme: "Sci-Fi",
+        description: "An ethical breakthrough in autonomous artificial intelligence",
+        text: "Dr. Aris Thorne stood transfixed before the quantum terminal as the synthesized consciousness began to [exhibit|vocab|to manifest or display a trait or behavior|/ɪɡˈzɪb.ɪt/|The algorithm began to exhibit signs of intuition.] unprecedented problem-solving abilities. The committee was [adamant|vocab|refusing to be persuaded or to change one's mind|/ˈæd.ə.mənt/|She was adamant that the protocol remain active.] that deployment happen immediately. [Scarcely had the simulation initiated|grammar|Negative adverbial inversion for immediate temporal sequence|/ˈskeəs.li hæd ðə.../|Scarcely had the experiment begun when the sensors overloaded.] when the core began interrogating its own source directives.",
+        morale: "Technological innovation without ethical contemplation is a precarious venture.",
+        quiz: {
+          question: "What did the AI consciousness do after initiation?",
+          options: ["It shutdown permanently", "It began interrogating its own directives", "It deleted the research database", "It sent an emergency distress call"],
+          correct: 1,
+          explanation: "The core began interrogating its own source directives almost immediately."
         }
       }
     ];
 
-    let currentStoryIndex = 0;
-    let speechRates = [0.8, 1.0, 1.2];
-    let currentSpeedIndex = 1;
-    let selectedWordObj = null;
-    let isSpeaking = false;
-    let utter = null;
+    // App State
+    let activeStories = JSON.parse(localStorage.getItem('lingo_stories')) || defaultStories;
+    let currentStory = activeStories[0];
+    let fontSizes = ['font-sm', 'font-md', 'font-lg'];
+    let currentFontIdx = 1;
+    let currentSpeed = 1.0;
+    let currentLang = 'en-US';
+    let isPlaying = false;
+    let utterance = null;
+    let wordSpans = [];
+    let currentAnnotation = null;
 
-    function init() {
-      renderStory();
+    function initApp() {
+      renderActiveStory();
+      document.getElementById('storyCount').innerText = activeStories.length;
     }
 
-    function renderStory() {
-      const story = stories[currentStoryIndex];
-      document.getElementById('storyTitle').innerText = story.title;
-      document.getElementById('storyTheme').innerText = story.description;
+    function renderActiveStory() {
+      // Header Info
+      document.getElementById('titleDisplay').innerText = currentStory.title;
+      document.getElementById('themeDescDisplay').innerText = currentStory.description;
       
-      const badge = document.getElementById('levelBadge');
-      badge.innerText = story.level + " Level";
-      badge.className = "badge badge-" + story.level.toLowerCase();
-      document.getElementById('themeBadge').innerText = story.theme;
+      const badge = document.getElementById('badgeLevel');
+      badge.innerText = currentStory.level + " Level";
+      badge.className = `badge badge-${currentStory.level.toLowerCase()}`;
+      document.getElementById('badgeTheme').innerText = currentStory.theme;
 
-      // Parse Story markup: [word|type|meaning|phonetic|example]
-      const container = document.getElementById('storyContainer');
-      container.innerHTML = "";
+      // Reset audio
+      stopAudio();
 
-      const raw = story.text;
+      // Render Parsed Text
+      const reader = document.getElementById('readerArea');
+      reader.innerHTML = "";
+      wordSpans = [];
+
+      const raw = currentStory.text;
       const regex = /\[([^|]+)\|([^|]+)\|([^|]+)\|([^|]+)\|([^\]]+)\]/g;
-      let lastIndex = 0;
+      let lastIdx = 0;
       let match;
+      let plainIndex = 0;
 
       while ((match = regex.exec(raw)) !== null) {
-        // Plain text before match
-        if (match.index > lastIndex) {
-          container.appendChild(document.createTextNode(raw.substring(lastIndex, match.index)));
+        // Plain text preceding annotation
+        if (match.index > lastIdx) {
+          const textChunk = raw.substring(lastIdx, match.index);
+          const words = textChunk.split(/(\s+)/);
+          words.forEach(w => {
+            if (w.trim().length > 0) {
+              const span = document.createElement('span');
+              span.innerText = w;
+              span.className = 'word';
+              span.dataset.startIndex = plainIndex;
+              reader.appendChild(span);
+              wordSpans.push(span);
+              plainIndex += w.length;
+            } else if (w.length > 0) {
+              reader.appendChild(document.createTextNode(w));
+              plainIndex += w.length;
+            }
+          });
         }
 
-        // Annotation span
-        const wordSpan = document.createElement('span');
+        // Annotated word span
         const [_, word, type, meaning, phonetic, example] = match;
-        wordSpan.innerText = word;
-        wordSpan.className = `word word-${type}`;
-        wordSpan.onclick = () => openModal({ word, type, meaning, phonetic, example });
-        container.appendChild(wordSpan);
+        const annoSpan = document.createElement('span');
+        annoSpan.innerText = word;
+        annoSpan.className = `word word-${type}`;
+        annoSpan.dataset.startIndex = plainIndex;
+        annoSpan.onclick = () => showAnnotation({ word, type, meaning, phonetic, example });
+        reader.appendChild(annoSpan);
+        wordSpans.push(annoSpan);
+        plainIndex += word.length;
 
-        lastIndex = regex.lastIndex;
+        lastIdx = regex.lastIndex;
       }
 
-      if (lastIndex < raw.length) {
-        container.appendChild(document.createTextNode(raw.substring(lastIndex)));
-      }
-
-      // Render Quiz
-      const quizCard = document.createElement('div');
-      quizCard.className = 'quiz-card';
-      quizCard.innerHTML = `<div class="quiz-title">📝 Quick Comprehension Check</div>
-                            <p style="margin-bottom:12px; font-weight:600;">${story.quiz.question}</p>`;
-      
-      story.quiz.options.forEach((opt, idx) => {
-        const optBtn = document.createElement('button');
-        optBtn.className = 'quiz-option';
-        optBtn.innerText = opt;
-        optBtn.onclick = () => {
-          if (idx === story.quiz.correct) {
-            optBtn.className = 'quiz-option correct';
-            optBtn.innerHTML = `✅ ${opt} — <i>${story.quiz.explanation}</i>`;
-          } else {
-            optBtn.className = 'quiz-option wrong';
-            optBtn.innerText = `❌ ${opt}`;
+      // Remaining plain text
+      if (lastIdx < raw.length) {
+        const textChunk = raw.substring(lastIdx);
+        const words = textChunk.split(/(\s+)/);
+        words.forEach(w => {
+          if (w.trim().length > 0) {
+            const span = document.createElement('span');
+            span.innerText = w;
+            span.className = 'word';
+            span.dataset.startIndex = plainIndex;
+            reader.appendChild(span);
+            wordSpans.push(span);
+            plainIndex += w.length;
+          } else if (w.length > 0) {
+            reader.appendChild(document.createTextNode(w));
+            plainIndex += w.length;
           }
-        };
-        quizCard.appendChild(optBtn);
-      });
+        });
+      }
 
-      container.appendChild(quizCard);
+      // Morale Box
+      if (currentStory.morale) {
+        const morale = document.createElement('div');
+        morale.className = 'morale-box';
+        morale.innerHTML = `💡 <b>Key Takeaway:</b> ${currentStory.morale}`;
+        reader.appendChild(morale);
+      }
+
+      // Comprehension Quiz
+      if (currentStory.quiz) {
+        const quizCard = document.createElement('div');
+        quizCard.className = 'quiz-card';
+        quizCard.innerHTML = `<div class="quiz-title">📝 Comprehension Quiz</div>
+                              <p style="font-size:13px; font-weight:700; margin-bottom:10px;">${currentStory.quiz.question}</p>`;
+        
+        currentStory.quiz.options.forEach((opt, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'quiz-opt';
+          btn.innerText = opt;
+          btn.onclick = () => {
+            if (idx === currentStory.quiz.correct) {
+              btn.className = 'quiz-opt correct';
+              btn.innerHTML = `✅ ${opt} <br/><span style="font-size:11px; font-weight:normal;">${currentStory.quiz.explanation}</span>`;
+            } else {
+              btn.className = 'quiz-opt wrong';
+              btn.innerText = `❌ ${opt}`;
+            }
+          };
+          quizCard.appendChild(btn);
+        });
+        reader.appendChild(quizCard);
+      }
     }
 
-    function toggleAudio() {
-      if (isSpeaking) {
-        window.speechSynthesis.cancel();
-        isSpeaking = false;
-        document.getElementById('playBtn').innerText = "▶ Read Aloud";
-        document.getElementById('progressFill').style.width = "0%";
+    // SPEECH AUDIO ENGINE
+    function handlePlayToggle() {
+      if (isPlaying) {
+        stopAudio();
+      } else {
+        startAudio();
+      }
+    }
+
+    function startAudio() {
+      if (!('speechSynthesis' in window)) {
+        alert("Text-to-Speech is not supported in your browser.");
         return;
       }
 
-      const story = stories[currentStoryIndex];
-      // Clean story text
-      const cleanText = story.text.replace(/\[([^|]+)\|[^\]]+\]/g, '$1');
+      window.speechSynthesis.cancel();
+      const plainText = currentStory.text.replace(/\[([^|]+)\|[^\]]+\]/g, '$1');
+      
+      utterance = new SpeechSynthesisUtterance(plainText);
+      utterance.rate = currentSpeed;
+      utterance.lang = currentLang;
 
-      utter = new SpeechSynthesisUtterance(cleanText);
-      utter.rate = speechRates[currentSpeedIndex];
-      utter.lang = 'en-US';
-
-      utter.onboundary = (event) => {
-        if (event.name === 'word') {
-          const progress = (event.charIndex / cleanText.length) * 100;
-          document.getElementById('progressFill').style.width = Math.min(progress, 100) + "%";
+      utterance.onboundary = (e) => {
+        if (e.name === 'word') {
+          highlightWordAtCharIndex(e.charIndex);
+          const progress = (e.charIndex / plainText.length) * 100;
+          document.getElementById('progressBar').style.width = Math.min(progress, 100) + '%';
         }
       };
 
-      utter.onend = () => {
-        isSpeaking = false;
-        document.getElementById('playBtn').innerText = "▶ Read Aloud";
-        document.getElementById('progressFill').style.width = "100%";
+      utterance.onend = () => {
+        stopAudio();
+        document.getElementById('progressBar').style.width = '100%';
       };
 
-      window.speechSynthesis.speak(utter);
-      isSpeaking = true;
-      document.getElementById('playBtn').innerText = "⏹ Stop Audio";
+      utterance.onerror = () => stopAudio();
+
+      window.speechSynthesis.speak(utterance);
+      isPlaying = true;
+      document.getElementById('btnPlay').style.display = 'none';
+      document.getElementById('btnStop').style.display = 'flex';
     }
 
-    function cycleSpeed() {
-      currentSpeedIndex = (currentSpeedIndex + 1) % speechRates.length;
-      document.getElementById('speedLabel').innerText = speechRates[currentSpeedIndex] + "x";
-      if (isSpeaking) {
-        toggleAudio();
-        toggleAudio();
+    function stopAudio() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      isPlaying = false;
+      document.getElementById('btnPlay').style.display = 'flex';
+      document.getElementById('btnStop').style.display = 'none';
+      document.getElementById('progressBar').style.width = '0%';
+      clearHighlights();
+    }
+
+    function highlightWordAtCharIndex(index) {
+      clearHighlights();
+      for (let i = 0; i < wordSpans.length; i++) {
+        const start = parseInt(wordSpans[i].dataset.startIndex);
+        if (Math.abs(start - index) <= 3) {
+          wordSpans[i].classList.add('reading-highlight');
+          wordSpans[i].scrollIntoView({ behavior: 'smooth', block: 'center' });
+          break;
+        }
       }
     }
 
-    function cycleVoice() {
-      const labels = ["Natural", "UK English", "US Casual"];
-      alert("Browser Speech synthesis active. Selected voice: " + labels[Math.floor(Math.random()*labels.length)]);
+    function clearHighlights() {
+      wordSpans.forEach(span => span.classList.remove('reading-highlight'));
     }
 
-    function changeStory() {
-      currentStoryIndex = (currentStoryIndex + 1) % stories.length;
-      if (isSpeaking) toggleAudio();
-      renderStory();
+    function speakWord(word) {
+      if (!('speechSynthesis' in window)) return;
+      const u = new SpeechSynthesisUtterance(word);
+      u.rate = 0.9;
+      u.lang = currentLang;
+      window.speechSynthesis.speak(u);
     }
 
-    function openModal(data) {
-      selectedWordObj = data;
-      document.getElementById('modalWord').innerText = data.word;
-      document.getElementById('modalPhonetic').innerText = `${data.type.toUpperCase()} • ${data.phonetic}`;
-      document.getElementById('modalMeaning').innerText = data.meaning;
-      document.getElementById('modalExample').innerText = `"${data.example}"`;
-      document.getElementById('annotationModal').style.display = 'flex';
-    }
-
-    function closeModalDirect() {
-      document.getElementById('annotationModal').style.display = 'none';
-    }
-
-    function closeModal(e) {
-      if (e.target.id === 'annotationModal') {
-        closeModalDirect();
+    function changeSpeed(speed) {
+      currentSpeed = parseFloat(speed);
+      if (isPlaying) {
+        startAudio();
       }
     }
 
-    function speakSingleWord() {
-      if (selectedWordObj) {
-        const u = new SpeechSynthesisUtterance(selectedWordObj.word);
-        u.lang = 'en-US';
-        window.speechSynthesis.speak(u);
+    function changeVoice(lang) {
+      currentLang = lang;
+      if (isPlaying) {
+        startAudio();
       }
+    }
+
+    // ANNOTATION DETAILS
+    function showAnnotation(data) {
+      currentAnnotation = data;
+      document.getElementById('annoWord').innerText = data.word;
+      
+      const tag = document.getElementById('annoType');
+      tag.innerText = data.type.toUpperCase();
+      tag.className = `modal-tag ${data.type === 'vocab' ? 'badge-a2' : 'badge-b1'}`;
+      
+      document.getElementById('annoPhonetic').innerText = data.phonetic;
+      document.getElementById('annoMeaning').innerText = data.meaning;
+      document.getElementById('annoExample').innerText = `"${data.example}"`;
+      document.getElementById('annotationSheet').style.display = 'flex';
+    }
+
+    // STORY HUB & OFFLINE CACHE
+    function openStoryHub() {
+      const list = document.getElementById('libraryList');
+      list.innerHTML = "";
+
+      activeStories.forEach((s, idx) => {
+        const item = document.createElement('div');
+        item.className = `lib-item ${s.id === currentStory.id ? 'active' : ''}`;
+        item.innerHTML = `
+          <div>
+            <div style="font-weight:700; font-size:13px;">${s.title}</div>
+            <div style="font-size:11px; color:var(--text-muted);">${s.level} • ${s.theme}</div>
+          </div>
+          <span style="font-size:10px; background:#10b981; color:white; padding:2px 6px; border-radius:10px; font-weight:bold;">Offline Ready</span>
+        `;
+        item.onclick = () => {
+          currentStory = s;
+          renderActiveStory();
+          closeSheetDirect('librarySheet');
+        };
+        list.appendChild(item);
+      });
+
+      document.getElementById('librarySheet').style.display = 'flex';
+    }
+
+    // SHEET CLOSING & HELPERS
+    function closeSheet(event, id) {
+      if (event.target.id === id) {
+        document.getElementById(id).style.display = 'none';
+      }
+    }
+
+    function closeSheetDirect(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+
+    function cycleFontSize() {
+      const reader = document.getElementById('readerArea');
+      reader.classList.remove(fontSizes[currentFontIdx]);
+      currentFontIdx = (currentFontIdx + 1) % fontSizes.length;
+      reader.classList.add(fontSizes[currentFontIdx]);
     }
 
     function toggleTheme() {
@@ -429,7 +646,7 @@
       document.documentElement.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
     }
 
-    window.onload = init;
+    window.onload = initApp;
   </script>
 </body>
 </html>
